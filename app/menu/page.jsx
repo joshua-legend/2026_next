@@ -1,4 +1,11 @@
-import Coffee from "@/components/Coffee";
+/* 
+Next 13 버전 이전: 상관 없음
+Next 13 버전 이후:
+- 클라이언트 컴포넌트 [useState]
+- 서버 컴포넌트[fetch]
+*/
+
+import Menus from "@/components/Menus";
 import { API } from "@/lib/dataURL";
 import { getBeverage } from "@/lib/get";
 
@@ -6,27 +13,28 @@ const page = async () => {
   const coffees = await getBeverage(API.coffee);
   const wines = await getBeverage(API.wine);
   const beers = await getBeverage(API.beer);
-
-  const arr = coffees.map((v) => ({ ...v, category: "coffee" }));
-  const arr1 = wines.map((v) => ({ ...v, category: "wines" }));
-  const arr2 = beers.map((v) => ({ ...v, category: "beers" }));
-
-  const newArr = [...arr, ...arr1, ...arr2];
-  console.log(newArr);
-
+  const arr = coffees.map((v) => ({
+    image: v.image,
+    main: v.title,
+    sub: v.description,
+    category: "coffee",
+  }));
+  const arr1 = wines.map((v) => ({
+    image: v.image,
+    main: v.wine,
+    sub: v.winery,
+    category: "wine",
+  }));
+  const arr2 = beers.map((v) => ({
+    image: v.image,
+    main: v.name,
+    sub: v.price,
+    category: "beer",
+  }));
+  const data = [...arr, ...arr1, ...arr2];
   return (
     <>
-      <div>
-        <button>ALL</button>
-        <button>Coffees</button>
-        <button>Wines</button>
-        <button>Beers</button>
-      </div>
-      <section className="grid grid-cols-3 max-w-5xl mx-auto">
-        {coffees.map((v, i) => (
-          <Coffee key={i} {...v} />
-        ))}
-      </section>
+      <Menus data={data} />
     </>
   );
 };
