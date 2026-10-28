@@ -5,16 +5,21 @@ import Beverage from "./Beverage";
 const Menus = ({ data }) => {
   const origin = data;
   const [beverages, setBeverages] = useState(data);
+
+  const changeAll = () => {
+    setBeverages(() => origin);
+  };
+
   const change = (target) => {
     setBeverages(() => origin.filter((x) => x.category == target));
   };
 
   return (
     <>
-      <div>
+      <div className="flex gap-2 items-center mx-auto max-w-5xl">
         <button
           onClick={() => {
-            change(true);
+            changeAll();
           }}
         >
           ALL

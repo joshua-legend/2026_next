@@ -14,18 +14,21 @@ const page = async () => {
   const wines = await getBeverage(API.wine);
   const beers = await getBeverage(API.beer);
   const arr = coffees.map((v) => ({
+    id: v.id,
     image: v.image,
     main: v.title,
     sub: v.description,
     category: "coffee",
   }));
   const arr1 = wines.map((v) => ({
+    id: v.id,
     image: v.image,
     main: v.wine,
     sub: v.winery,
     category: "wine",
   }));
   const arr2 = beers.map((v) => ({
+    id: v.id,
     image: v.image,
     main: v.name,
     sub: v.price,
